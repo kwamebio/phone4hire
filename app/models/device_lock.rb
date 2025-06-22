@@ -1,0 +1,2 @@
+class DeviceLock < ApplicationRecord
+end

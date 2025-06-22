@@ -1,0 +1,2 @@
+class InstallPlan < ApplicationRecord
+end

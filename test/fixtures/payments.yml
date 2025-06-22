@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1
+  payment_date: 2025-06-22
+  status: 1
+  method: MyString
+  currency: MyString
+  trans_reference: MyString
+  external_ref: MyString
+
+two:
+  amount: 1
+  payment_date: 2025-06-22
+  status: 1
+  method: MyString
+  currency: MyString
+  trans_reference: MyString
+  external_ref: MyString

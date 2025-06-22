@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_amount: 1
+  amount_paid: 1
+  monthly_payment: 1
+  due_day: 1
+  start_date: 2025-06-22
+  end_date: 2025-06-22
+  status: 1
+  locked: false
+
+two:
+  total_amount: 1
+  amount_paid: 1
+  monthly_payment: 1
+  due_day: 1
+  start_date: 2025-06-22
+  end_date: 2025-06-22
+  status: 1
+  locked: false

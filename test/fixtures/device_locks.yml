@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reason: MyString
+  locked_at: 2025-06-22 18:13:19
+  unlocked_at: 2025-06-22 18:13:19
+  manually_locked: false
+
+two:
+  reason: MyString
+  locked_at: 2025-06-22 18:13:19
+  unlocked_at: 2025-06-22 18:13:19
+  manually_locked: false
