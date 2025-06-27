@@ -6,7 +6,7 @@ class CreateDevices < ActiveRecord::Migration[7.2]
       t.string :serial_number
       t.string :model
       t.integer :purchasing_price
-      t.integer :status
+      t.string :status, default: "available", null: false
 
       t.references :user, null: false, foreign_key: true
 

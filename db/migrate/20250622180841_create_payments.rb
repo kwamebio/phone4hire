@@ -3,7 +3,7 @@ class CreatePayments < ActiveRecord::Migration[7.2]
     create_table :payments do |t|
       t.integer :amount
       t.date :payment_date
-      t.integer :status
+      t.string :status
       t.string :method
       t.string :currency
       t.string :trans_reference

@@ -7,7 +7,7 @@ class CreateInstallmentPlans < ActiveRecord::Migration[7.2]
       t.integer :due_day
       t.date :start_date
       t.date :end_date
-      t.integer :status
+      t.string :status, default: "active", null: false
       t.boolean :locked
 
       t.references :user, null: false, foreign_key: true

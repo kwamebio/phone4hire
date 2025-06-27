@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.string "serial_number"
     t.string "model"
     t.integer "purchasing_price"
-    t.integer "status"
+    t.string "status", default: "available", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,7 +64,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.integer "due_day"
     t.date "start_date"
     t.date "end_date"
-    t.integer "status"
+    t.string "status", default: "active", null: false
     t.boolean "locked"
     t.bigint "user_id", null: false
     t.bigint "device_id", null: false
@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
   create_table "payments", force: :cascade do |t|
     t.integer "amount"
     t.date "payment_date"
-    t.integer "status"
+    t.string "status"
     t.string "method"
     t.string "currency"
     t.string "trans_reference"
@@ -112,7 +112,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.string "phone_number"
     t.string "national_id"
     t.string "home_address"
-    t.integer "status"
+    t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

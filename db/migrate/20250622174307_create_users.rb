@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.string :phone_number
       t.string :national_id
       t.string :home_address
-      t.integer :status
+      t.string :status, default: "active", null: false
 
       t.timestamps
     end
