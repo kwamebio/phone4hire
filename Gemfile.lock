@@ -272,6 +272,7 @@ DEPENDENCIES
   rails (~> 7.2.2, >= 7.2.2.1)
   rubocop-rails-omakase
   tzinfo-data
+  useragent (~> 0.16.11)
 
 BUNDLED WITH
    2.5.10
