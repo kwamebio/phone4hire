@@ -10,6 +10,8 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.string :home_address
       t.string :status, default: "active", null: false
 
+      t.references :dealer, foreign_key: true, null: false
+
       t.timestamps
     end
   end

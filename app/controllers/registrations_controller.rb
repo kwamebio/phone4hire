@@ -8,6 +8,8 @@ class RegistrationsController < ApplicationController
   end
 
   def create
+    dealer = Dealer.find(params[:dealer_id])
+    ActsAsTenant.current_tenant = dealer
     @user = User.create!(user_params)
     if @user.save
       render json: { message: "User created successfully", user: @user }, status: :created

@@ -7,6 +7,7 @@ class CreateSessions < ActiveRecord::Migration[7.2]
       t.string :user_agent
       t.string :last_active_at
       t.references :owner, polymorphic: true, null: false, index: true
+      t.references :dealer, null: false, foreign_key: true
 
       t.timestamps
     end

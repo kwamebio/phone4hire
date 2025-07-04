@@ -1,7 +1,12 @@
 class SessionsController < ApplicationController
   def user_login
+    user = nil
+    ActsAsTenant.without_tenant do
     user = User.find_by(email: params[:email])
+     end
     if user&.authenticate(params[:password])
+      ActsAsTenant.current_tenant = user.dealer
+
       token = JsonWebToken.encode(user_id: user.id)
       decoded = JsonWebToken.decode(token)
 
@@ -23,8 +28,13 @@ class SessionsController < ApplicationController
   end
 
   def admin_login
+    admin = nil
+    ActsAsTenant.without_tenant do
     admin = Admin.find_by(email: params[:email])
+     end
     if admin&.authenticate(params[:password])
+      ActsAsTenant.current_tenant = admin.dealer
+
       token = JsonWebToken.encode(admin_id: admin.id)
       decoded = JsonWebToken.decode(token)
 

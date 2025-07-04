@@ -7,6 +7,8 @@ class CreateAuditLogs < ActiveRecord::Migration[7.2]
       t.string :ip_address
       t.string :user_agent
 
+      t.references :dealer, null: false, foreign_key: true
+
       t.timestamps
     end
   end

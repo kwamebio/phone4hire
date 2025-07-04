@@ -17,8 +17,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
   create_table "admins", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
+    t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dealer_id"], name: "index_admins_on_dealer_id"
   end
 
   create_table "audit_logs", force: :cascade do |t|
@@ -28,9 +30,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.jsonb "details"
     t.string "ip_address"
     t.string "user_agent"
+    t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dealer_id"], name: "index_audit_logs_on_dealer_id"
     t.index ["performed_by_type", "performed_by_id"], name: "index_audit_logs_on_performed_by"
+  end
+
+  create_table "dealers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone_number"
+    t.text "address"
+    t.string "region"
+    t.boolean "approved"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_dealers_on_email", unique: true
   end
 
   create_table "device_locks", force: :cascade do |t|
@@ -38,10 +54,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.datetime "locked_at"
     t.datetime "unlocked_at"
     t.boolean "manually_locked"
-    t.bigint "device_id"
+    t.bigint "device_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["device_id"], name: "index_device_locks_on_device_id"
+    t.index ["user_id"], name: "index_device_locks_on_user_id"
   end
 
   create_table "devices", force: :cascade do |t|
@@ -52,8 +70,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.integer "purchasing_price"
     t.string "status", default: "available", null: false
     t.bigint "user_id", null: false
+    t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dealer_id"], name: "index_devices_on_dealer_id"
     t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
@@ -68,8 +88,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.boolean "locked"
     t.bigint "user_id", null: false
     t.bigint "device_id", null: false
+    t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dealer_id"], name: "index_installment_plans_on_dealer_id"
     t.index ["device_id"], name: "index_installment_plans_on_device_id"
     t.index ["user_id"], name: "index_installment_plans_on_user_id"
   end
@@ -84,8 +106,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.string "external_ref"
     t.bigint "installment_plan_id", null: false
     t.bigint "user_id", null: false
+    t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dealer_id"], name: "index_payments_on_dealer_id"
     t.index ["installment_plan_id"], name: "index_payments_on_installment_plan_id"
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
@@ -98,8 +122,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.string "last_active_at"
     t.string "owner_type", null: false
     t.bigint "owner_id", null: false
+    t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dealer_id"], name: "index_sessions_on_dealer_id"
     t.index ["owner_type", "owner_id"], name: "index_sessions_on_owner"
   end
 
@@ -112,13 +138,24 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.string "national_id"
     t.string "home_address"
     t.string "status", default: "active", null: false
+    t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dealer_id"], name: "index_users_on_dealer_id"
   end
 
+  add_foreign_key "admins", "dealers"
+  add_foreign_key "audit_logs", "dealers"
+  add_foreign_key "device_locks", "devices"
+  add_foreign_key "device_locks", "users"
+  add_foreign_key "devices", "dealers"
   add_foreign_key "devices", "users"
+  add_foreign_key "installment_plans", "dealers"
   add_foreign_key "installment_plans", "devices"
   add_foreign_key "installment_plans", "users"
+  add_foreign_key "payments", "dealers"
   add_foreign_key "payments", "installment_plans"
   add_foreign_key "payments", "users"
+  add_foreign_key "sessions", "dealers"
+  add_foreign_key "users", "dealers"
 end

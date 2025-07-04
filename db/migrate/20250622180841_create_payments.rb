@@ -11,6 +11,7 @@ class CreatePayments < ActiveRecord::Migration[7.2]
 
       t.references :installment_plan, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
+      t.references :dealer, null: false, foreign_key: true
 
       t.timestamps
     end

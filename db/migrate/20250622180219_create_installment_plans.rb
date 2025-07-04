@@ -12,6 +12,7 @@ class CreateInstallmentPlans < ActiveRecord::Migration[7.2]
 
       t.references :user, null: false, foreign_key: true
       t.references :device, null: false, foreign_key: true
+      t.references :dealer, null: false, foreign_key: true
 
       t.timestamps
     end

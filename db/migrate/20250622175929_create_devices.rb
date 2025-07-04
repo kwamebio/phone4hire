@@ -9,6 +9,7 @@ class CreateDevices < ActiveRecord::Migration[7.2]
       t.string :status, default: "available", null: false
 
       t.references :user, null: false, foreign_key: true
+      t.references :dealer, null: false, foreign_key: true
 
       t.timestamps
     end
