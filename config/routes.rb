@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :users
-  match "/login", to: "sessions#login", via: :post
+  resources :registrations
+
+  match "/login", to: "sessions#user_login", via: :post
   match "/admin_login", to: "sessions#admin_login", via: :post
 end

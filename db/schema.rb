@@ -96,12 +96,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.string "ip_address"
     t.string "user_agent"
     t.string "last_active_at"
-    t.bigint "user_id", null: false
-    t.bigint "admin_id"
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["admin_id"], name: "index_sessions_on_admin_id"
-    t.index ["user_id"], name: "index_sessions_on_user_id"
+    t.index ["owner_type", "owner_id"], name: "index_sessions_on_owner"
   end
 
   create_table "users", force: :cascade do |t|
@@ -122,6 +121,4 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
   add_foreign_key "installment_plans", "users"
   add_foreign_key "payments", "installment_plans"
   add_foreign_key "payments", "users"
-  add_foreign_key "sessions", "admins"
-  add_foreign_key "sessions", "users"
 end

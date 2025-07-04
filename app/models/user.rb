@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :sessions, as: :owner, dependent: :destroy
 
   validates :national_id, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true

@@ -6,10 +6,9 @@ class SessionsController < ApplicationController
       decoded = JsonWebToken.decode(token)
 
       user_agent_string = request.user_agent
-      ua = UserAgent.parse(user_agent_string)
 
       Session.create!(
-        user_id: user.id,
+        owner: user,
         token: token,
         expired_at: Time.at(decoded["exp"]),
         ip_address: request.remote_ip,
@@ -17,7 +16,7 @@ class SessionsController < ApplicationController
         last_active_at: Time.current
       )
 
-      render json: { message: "Login successful", token: token, user_agent: { browser: ua.browser, os: ua.platform, device_type: ua.mobile? ? "Mobile" : "Desktop" } }, status: :ok
+      render json: { message: "Login successful", token: token, user: user.as_json.except("password_digest") }, status: :ok
     else
       render json: { error: "Invalid email or password" }, status: :unauthorized
     end
@@ -30,10 +29,9 @@ class SessionsController < ApplicationController
       decoded = JsonWebToken.decode(token)
 
       user_agent_string = request.user_agent
-      ua = UserAgent.parse(user_agent_string)
 
       Session.create!(
-        admin_id: admin.id,
+        owner: admin,
         token: token,
         expired_at: Time.at(decoded["exp"]),
         ip_address: request.remote_ip,
@@ -41,7 +39,7 @@ class SessionsController < ApplicationController
         last_active_at: Time.current
       )
 
-      render json: { message: "Admin login successful", token: token, user_agent: { browser: ua.browser, os: ua.platform, device_type: ua.mobile? ? "Mobile" : "Desktop" } }, status: :ok
+      render json: { message: "Admin login successful", token: token, user: admin.as_json.except("password_digest") }, status: :ok
     else
       render json: { error: "Invalid email or password" }, status: :unauthorized
     end
