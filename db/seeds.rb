@@ -14,6 +14,6 @@ ActsAsTenant.with_tenant(dealer) do
   Admin.find_or_create_by!(email: "kwameagyemang73@gmail.com") do |admin|
     admin.password = "password"
     admin.password_confirmation = "password"
-    admin.dealer = dealer  # just in case
+    admin.dealer = dealer
   end
 end

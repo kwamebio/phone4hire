@@ -5,6 +5,7 @@ class CreateDevices < ActiveRecord::Migration[7.2]
       t.string :imei
       t.string :serial_number
       t.string :model
+      t.text :device_description
       t.integer :purchasing_price
       t.string :status, default: "available", null: false
 
