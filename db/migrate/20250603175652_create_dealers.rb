@@ -6,6 +6,7 @@ class CreateDealers < ActiveRecord::Migration[7.2]
       t.string :phone_number
       t.text :address
       t.string :region
+      t.string :subdomain
       t.boolean :approved
 
       t.timestamps

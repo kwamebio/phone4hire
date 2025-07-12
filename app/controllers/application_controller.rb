@@ -22,12 +22,17 @@ class ApplicationController < ActionController::API
   end
 
   def set_current_tenant
-    if current_user
-      ActsAsTenant.current_tenant = current_user.dealer
-    elsif current_admin
-      ActsAsTenant.current_tenant = current_admin.dealer
+    subdomain = request.subdomains.first
+    puts "Subdomain:----------------------------- #{subdomain.inspect}"
+    if subdomain.present?
+      dealer = Dealer.find_by(subdomain: subdomain)
+      if dealer
+        ActsAsTenant.current_tenant = dealer
+      else
+        render json: { error: "Tenant not found" }, status: :not_found
+      end
     else
-      ActsAsTenant.current_tenant = nil
+      render json: { error: "Subdomain not provided" }, status: :bad_request
     end
   end
 end

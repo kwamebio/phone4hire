@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-dealer = Dealer.find_or_create_by!(name: "Main Dealer", email: "dealer@example.com", phone_number: "1234567890", address: "123 Main St", region: "Region A", approved: true)
+dealer = Dealer.find_or_create_by!(name: "Main Dealer", email: "dealer@example.com", phone_number: "1234567890", address: "123 Main St", region: "Region A", approved: true, subdomain: "maindealer")
 
 ActsAsTenant.with_tenant(dealer) do
   Admin.find_or_create_by!(email: "kwameagyemang73@gmail.com") do |admin|
