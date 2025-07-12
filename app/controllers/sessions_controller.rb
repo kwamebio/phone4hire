@@ -54,4 +54,22 @@ class SessionsController < ApplicationController
       render json: { error: "Invalid email or password" }, status: :unauthorized
     end
   end
+
+  def refresh_session_token
+    session = Session.find_by(token: params[:token])
+    if session
+      new_token = JsonWebToken.encode(user_id: session.owner.id)
+      decoded = JsonWebToken.decode(new_token)
+
+      session.update!(
+        token: new_token,
+        expired_at: Time.at(decoded["exp"]),
+        last_active_at: Time.current
+      )
+
+      render json: { message: "Session token refreshed", token: new_token }, status: :ok
+    else
+      render json: { error: "Session not found" }, status: :not_found
+    end
+  end
 end
