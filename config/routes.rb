@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   match "/login", to: "sessions#user_login", via: :post
   match "/refresh_token", to: "sessions#refresh_session_token", via: :post
   match "/admin_login", to: "sessions#admin_login", via: :post
+  match "/send_otp", to: "otps#send_otp", via: :post
+  match "/validate_otp", to: "otps#validate_otp", via: :post
 end

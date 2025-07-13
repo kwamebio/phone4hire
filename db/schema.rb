@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_13_000911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,6 +98,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.index ["user_id"], name: "index_installment_plans_on_user_id"
   end
 
+  create_table "otps", force: :cascade do |t|
+    t.string "otp_code"
+    t.boolean "verify_status"
+    t.boolean "delivery_status"
+    t.datetime "expires_at"
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_otps_on_owner"
+  end
+
   create_table "payments", force: :cascade do |t|
     t.integer "amount"
     t.date "payment_date"
@@ -140,6 +152,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_22_183154) do
     t.string "national_id"
     t.string "home_address"
     t.string "status", default: "active", null: false
+    t.boolean "account_verification", default: false, null: false
     t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
