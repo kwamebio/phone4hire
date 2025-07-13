@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   match "/admin_login", to: "sessions#admin_login", via: :post
   match "/send_otp", to: "otps#send_otp", via: :post
   match "/validate_otp", to: "otps#validate_otp", via: :post
+  post "/forgot_password", to: "passwords#forgot_password"
+  post "/reset_password", to: "passwords#reset_password"
 end

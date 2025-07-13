@@ -23,7 +23,6 @@ class ApplicationController < ActionController::API
 
   def set_current_tenant
     subdomain = request.subdomains.first
-    puts "Subdomain:----------------------------- #{subdomain.inspect}"
     if subdomain.present?
       dealer = Dealer.find_by(subdomain: subdomain)
       if dealer

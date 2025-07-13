@@ -21,6 +21,7 @@ gem "useragent", "~> 0.16.11"
 gem "acts_as_tenant"
 gem "dotenv-rails"
 gem "rack-cors"
+gem "email_address"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]

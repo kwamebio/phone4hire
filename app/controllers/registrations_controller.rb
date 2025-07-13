@@ -1,4 +1,5 @@
 class RegistrationsController < ApplicationController
+  skip_before_action :authorize_request, only: [ :create ]
   def index
     @users = User.all
     render json: @users, status: :ok
@@ -8,18 +9,22 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    @user = User.create!(user_params)
-    if @user.save
-      render json: { message: "User created successfully", user: @user }, status: :created
-    else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
-    end
+    ActiveRecord::Base.transaction do
+      @user = User.create!(user_params)
+      if @user.save
+        send_otp(@user)
+        render json: { message: "An otp has been sent to your email", user: @user }, status: :created
+      else
+        raise ActiveRecord::Rollback
+      end
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      end
   end
 
-  def send_otp
-    user = User.find_by(email: params[:email])
+  def send_otp(user)
+    # user = User.find_by(email: params[:email])
     otp_code_generated = user.generate_otp_code
-    if user
+       # if user
        Otp.create!(
         otp_code: otp_code_generated,
         verify_status: false,
@@ -28,10 +33,10 @@ class RegistrationsController < ApplicationController
         owner: user
       )
       user.send_otp_email
-      render json: { message: "OTP sent successfully" }, status: :ok
-    else
-      render json: { error: "User not found" }, status: :not_found
-    end
+    # render json: { message: "OTP sent successfully" }, status: :ok
+    # else
+    #   render json: { error: "User not found" }, status: :not_found
+    # end
   end
 
   def validate_otp

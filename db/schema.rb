@@ -153,6 +153,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_13_000911) do
     t.string "home_address"
     t.string "status", default: "active", null: false
     t.boolean "account_verification", default: false, null: false
+    t.string "reset_password_token"
+    t.date "reset_password_sent_at"
     t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
