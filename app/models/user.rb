@@ -23,17 +23,17 @@ class User < ApplicationRecord
   enum :status, { active: "active", blacklisted: "blacklisted", delinquent: "delinquent", locked: "locked" }
 
   def generate_password_token!
-    self.reset_password_token = SecureRandom.hex(3).upcase
+    self.reset_password_token = SecureRandom.hex(6).upcase
     self.reset_password_sent_at = Time.now.utc
     save!
   end
 
   def token_valid?
-    reset_password_sent_at.present? && reset_password_sent_at + 4.hours < Time.now
+    reset_password_sent_at.present? && reset_password_sent_at + 4.hours > Time.now
   end
 
   def send_reset_password_mail
-    UserMailer.reset_password_email(user: self).deliver_now
+    UserMailer.with(user: self).reset_password_email.deliver_now
   end
 
   def generate_otp_code

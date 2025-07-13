@@ -11,7 +11,7 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.string :status, default: "active", null: false
       t.boolean :account_verification, default: false, null: false
       t.string :reset_password_token
-      t.date :reset_password_sent_at
+      t.datetime :reset_password_sent_at
 
       t.references :dealer, foreign_key: true, null: false
 

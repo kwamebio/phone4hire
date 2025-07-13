@@ -130,7 +130,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_13_000911) do
 
   create_table "sessions", force: :cascade do |t|
     t.string "token"
-    t.string "expired_at"
+    t.datetime "expired_at"
     t.string "ip_address"
     t.string "user_agent"
     t.string "last_active_at"
@@ -154,7 +154,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_13_000911) do
     t.string "status", default: "active", null: false
     t.boolean "account_verification", default: false, null: false
     t.string "reset_password_token"
-    t.date "reset_password_sent_at"
+    t.datetime "reset_password_sent_at"
     t.bigint "dealer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
