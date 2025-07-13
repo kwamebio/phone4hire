@@ -1,5 +1,5 @@
 class Otp < ApplicationRecord
-  belongs_to :owner, polymorphic: true
+  belongs_to :owner, polymorphic: true, dependent: :destroy
 
   validates :otp_code, presence: true
 

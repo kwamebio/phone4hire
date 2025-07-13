@@ -14,6 +14,7 @@ class User < ApplicationRecord
   acts_as_tenant(:dealer)
 
   has_many :sessions, as: :owner, dependent: :destroy
+  has_many :otps, as: :owner, dependent: :destroy
 
   validates :national_id, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
@@ -36,10 +37,10 @@ class User < ApplicationRecord
   end
 
   def generate_otp_code
-    SecureRandom.hex(3)
+    rand(100000..999999)
   end
 
-  def send_otp_email
-    OtpMailer.with(user: self, otp: self).send_otp_email.deliver_now
+  def send_otp_email(otp)
+    UserMailer.with(user: self, otp: otp).send_otp_email.deliver_now
   end
 end

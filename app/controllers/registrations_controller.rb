@@ -11,32 +11,14 @@ class RegistrationsController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       @user = User.create!(user_params)
-      if @user.save
-        send_otp(@user)
-        render json: { message: "An otp has been sent to your email", user: @user }, status: :created
-      else
-        raise ActiveRecord::Rollback
-      end
-        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
-      end
-  end
-
-  def send_otp(user)
-    # user = User.find_by(email: params[:email])
-    otp_code_generated = user.generate_otp_code
-       # if user
-       Otp.create!(
-        otp_code: otp_code_generated,
-        verify_status: false,
-        delivery_status: false,
-        expires_at: 10.minutes.from_now,
-        owner: user
-      )
-      user.send_otp_email
-    # render json: { message: "OTP sent successfully" }, status: :ok
-    # else
-    #   render json: { error: "User not found" }, status: :not_found
-    # end
+      send_otp(@user)
+      Otp.update!(delivery_status: true)
+      render json: { message: "An otp has been sent to your email", user: @user }, status: :created
+    end
+  rescue ActiveRecord::RecordInvalid => e
+      render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
+  rescue => e
+      render json: { error: "Something went wrong: #{e.message}" }, status: :internal_server_error
   end
 
   def validate_otp
@@ -53,6 +35,17 @@ class RegistrationsController < ApplicationController
 
   private
 
+  def send_otp(user)
+    otp_code_generated = user.generate_otp_code
+       otp = Otp.create!(
+            otp_code: otp_code_generated,
+            verify_status: false,
+            delivery_status: false,
+            expires_at: 10.minutes.from_now,
+            owner: user
+      )
+      user.send_otp_email(otp)
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :status, :home_address, :national_id, :password, :password_confirmation)

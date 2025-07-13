@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>OTP Code</h1>
+    <p>Hello <%= @user.first_name %>,</p>
+    <p>This is your otp code <%=@otp.otp_code%>.</p>
+    <p>Click on the link below to use this code to verify your account.</p>
+    <a href="<%= @url %>">Account Verification</a>
+    <p>Thanks,</p>
+    <p>Hire Purchase</p>
+  </body>
+</html>
