@@ -21,6 +21,17 @@ class RegistrationsController < ApplicationController
       render json: { error: "Something went wrong: #{e.message}" }, status: :internal_server_error
   end
 
+  def resend_otp
+    user = User.find_by(email: params[:email])
+    if user
+      send_otp(user)
+      Otp.update!(delivery_status: true)
+      render json: { message: "OTP resent successfully" }, status: :ok
+    else
+      render json: { error: "User not found" }, status: :not_found
+    end
+  end
+
   def validate_otp
     user = User.find_by(email: params[:email])
     otp = Otp.find_by(otp_code: params[:otp_code], owner: user)
