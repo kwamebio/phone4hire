@@ -16,7 +16,7 @@ gem "puma", ">= 5.0"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
-gem "jwt", "~> 3.1", ">= 3.1.1"
+gem "jwt", "~> 3.1"
 gem "useragent", "~> 0.16.11"
 gem "acts_as_tenant"
 gem "dotenv-rails"
