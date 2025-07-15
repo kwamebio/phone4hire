@@ -35,11 +35,11 @@ class DevicesController < ApplicationController
     device = Device.find(params[:id])
     user = User.find_by(id: params[:user_id])
 
-    if device && user
+    if device && user && device.status == "available"  # && user.account_verification == true
       device.update(user_id: user.id, status: "assigned")
       render json: { message: "Device assigned to user successfully", device: device }, status: :ok
     else
-      render json: { error: "Device or User not found" }, status: :not_found
+      render json: { error: "Device or User not found or has already been assigned" }, status: :not_found
     end
   rescue ActiveRecord::RecordInvalid => e
     render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
