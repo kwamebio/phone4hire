@@ -71,8 +71,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_13_000911) do
     t.text "device_description"
     t.integer "purchasing_price"
     t.string "status", default: "available", null: false
-    t.bigint "user_id", null: false
-    t.bigint "dealer_id", null: false
+    t.bigint "user_id"
+    t.bigint "dealer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dealer_id"], name: "index_devices_on_dealer_id"

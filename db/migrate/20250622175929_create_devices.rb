@@ -9,8 +9,8 @@ class CreateDevices < ActiveRecord::Migration[7.2]
       t.integer :purchasing_price
       t.string :status, default: "available", null: false
 
-      t.references :user, null: false, foreign_key: true
-      t.references :dealer, null: false, foreign_key: true
+      t.references :user, foreign_key: true
+      t.references :dealer, foreign_key: true
 
       t.timestamps
     end
