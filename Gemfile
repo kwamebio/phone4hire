@@ -22,6 +22,7 @@ gem "acts_as_tenant"
 gem "dotenv-rails"
 gem "rack-cors"
 gem "email_address"
+gem "will_paginate", "~> 4.0", ">= 4.0.1"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -46,4 +47,4 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
-gem "dockerfile-rails", ">= 1.7", :group => :development
+gem "dockerfile-rails", ">= 1.7", group: :development

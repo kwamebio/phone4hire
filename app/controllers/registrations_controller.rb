@@ -1,9 +1,15 @@
 class RegistrationsController < ApplicationController
   skip_before_action :authorize_request, only: [ :create ]
   def index
-    @users = User.all
-    render json: @users, status: :ok
+    @users = User.paginate(page: params[:page], per_page: params[:per_page] || 10)
+    render json: {
+      users: @users,
+      current_page: @users.current_page,
+      total_pages: @users.total_pages,
+      total_entries: @users.total_entries
+    }, status: :ok
   end
+
 
   def show
   end
