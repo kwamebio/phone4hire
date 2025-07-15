@@ -5,6 +5,9 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
      end
     if user&.authenticate(params[:password])
+      # if user.account_verification == false
+      #   return render json: { error: "Account not verified" }, status: :unauthorized
+      # end
       ActsAsTenant.current_tenant = user.dealer
 
       token = JsonWebToken.encode(user_id: user.id)
