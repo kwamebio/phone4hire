@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
       # if user.account_verification == false
       #   return render json: { error: "Account not verified" }, status: :unauthorized
       # end
+      #
       ActsAsTenant.current_tenant = user.dealer
 
       token = JsonWebToken.encode(user_id: user.id)
