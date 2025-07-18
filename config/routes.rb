@@ -16,4 +16,10 @@ Rails.application.routes.draw do
   match "/devices/:id", to: "devices#show", via: :get
   match "/devices", to: "devices#create", via: :post
   match "/devices/assign", to: "devices#assign_device_to_user", via: :post
+
+  # routes for super admin
+  match "/total_tenants", to: "super_admin#total_tenants", via: :get
+  match "/total_users", to: "super_admin#total_users", via: :get
+  match "/total_revenue", to: "super_admin#total_revenue", via: :get
+  match "/contracts", to: "super_admin#contracts", via: :get
 end

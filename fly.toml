@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for hire-purchase on 2025-07-13T21:40:05Z
+# fly.toml app configuration file generated for hire-purchase-divine-darkness-479 on 2025-07-18T14:51:52Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'hire-purchase'
+app = 'hire-purchase-divine-darkness-479'
 primary_region = 'jnb'
 console_command = '/rails/bin/rails console'
 
