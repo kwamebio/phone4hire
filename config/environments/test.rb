@@ -59,7 +59,7 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
   config.hosts = [
-    # "example.com",     # Allow requests from example.com
+    "fonepadi.com",     # Allow requests from example.com
     /.*\.fonepadi\.com/ # Allow requests from subdomains like `www.example.com`
   ]
 

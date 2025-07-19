@@ -58,7 +58,8 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
   config.hosts = [
-    # "example.com",     # Allow requests from example.com
+
+    "fonepadi.com",     # Allow requests from example.com
     /.*\.fonepadi\.com/ # Allow requests from subdomains like `www.example.com`
   ]
 
