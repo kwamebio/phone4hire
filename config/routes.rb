@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   match "/devices/:id", to: "devices#show", via: :get
   match "/devices", to: "devices#create", via: :post
   match "/devices/assign", to: "devices#assign_device_to_user", via: :post
+  match "/devices/bulk_upload", to: "devices#bulk_upload_devices_csv", via: :post
+  match "devices/export_devices", to: "devices#export_csv_data", via: :post
 
   # routes for super admin
   match "/total_tenants", to: "super_admin#total_tenants", via: :get
