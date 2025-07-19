@@ -1,5 +1,11 @@
 class RegistrationsController < ApplicationController
   skip_before_action :authorize_request, only: [ :create ]
+  skip_before_action :set_current_tenant, only: [ :health_check ]
+
+  def health_check
+    render json: { message: "Application working" }, status: :ok
+  end
+
   def index
     @users = User.paginate(page: params[:page], per_page: params[:per_page] || 10)
     render json: {
@@ -9,7 +15,6 @@ class RegistrationsController < ApplicationController
       total_entries: @users.total_entries
     }, status: :ok
   end
-
 
   def show
   end

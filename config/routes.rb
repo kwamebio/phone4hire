@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   match "/validate_otp", to: "registrations#validate_otp", via: :post
   post "/forgot_password", to: "passwords#forgot_password"
   post "/reset_password", to: "passwords#reset_password"
+  match "/", to: "registrations#health_check", via: :get
 
   # routes for devices
   match "/devices", to: "devices#index", via: :get
