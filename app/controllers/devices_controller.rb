@@ -110,9 +110,9 @@ class DevicesController < ApplicationController
   send_data csv_data,
             filename: "devices_#{Time.current.strftime('%Y%m%d_%H%M%S')}.csv",
             type: "text/csv"
-rescue => e
-  render json: { error: "Something went wrong: #{e.message}" }, status: :internal_server_error
-end
+  rescue => e
+    render json: { error: "Something went wrong: #{e.message}" }, status: :internal_server_error
+  end
 
 
   private
