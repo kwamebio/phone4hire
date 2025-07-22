@@ -25,6 +25,7 @@ class DevicesController < ApplicationController
   end
 
   def create
+
     device = Device.create!(device_params)
     if device
       render json: { message: "Device created successfully", device: device }, status: :created
