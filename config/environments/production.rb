@@ -105,6 +105,7 @@ config.action_mailer.smtp_settings = {
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
+    "https://hire-purchase-divine-darkness-479.fly.dev",
     "fonepadi.com",     # Allow requests from example.com
     /.*\.fonepadi\.com/ # Allow requests from subdomains like `www.example.com`
   ]
