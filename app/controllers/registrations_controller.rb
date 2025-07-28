@@ -1,6 +1,6 @@
 class RegistrationsController < ApplicationController
   skip_before_action :authorize_request, only: [ :create ]
-  skip_before_action :set_current_tenant, only: [ :health_check ]
+  # skip_before_action :set_current_tenant_by_subdomain, only: [ :health_check ]
 
   def health_check
     render json: { message: "Application working" }, status: :ok

@@ -56,6 +56,8 @@ config.action_mailer.smtp_settings = {
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
   config.hosts = [
+    /.*\.lvh\.me/,
+    "127.0.0.1:3000",
     "localhost",         # Allow requests from localhost
 
     "fonepadi.com",     # Allow requests from example.com

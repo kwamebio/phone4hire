@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::API
-  set_current_tenant_through_filter
+  set_current_tenant_by_subdomain(:dealer, :subdomain)
   before_action :authorize_request
-  before_action :set_current_tenant
 
   attr_reader :current_user, :current_admin
 
@@ -21,17 +20,17 @@ class ApplicationController < ActionController::API
     render json: { error: "Invalid token" }, status: :unauthorized
   end
 
-  def set_current_tenant
-    subdomain = request.subdomains.first
-    if subdomain.present?
-      dealer = Dealer.find_by(subdomain: subdomain)
-      if dealer
-        ActsAsTenant.current_tenant = dealer
-      else
-        render json: { error: "Tenant not found" }, status: :not_found
-      end
-    else
-      render json: { error: "Subdomain not provided" }, status: :bad_request
-    end
-  end
+  # def set_current_tenant
+  #   subdomain = request.subdomains.first
+  #   if subdomain.present?
+  #     dealer = Dealer.find_by(subdomain: subdomain)
+  #     if dealer
+  #       ActsAsTenant.current_tenant = dealer
+  #     else
+  #       render json: { error: "Tenant not found" }, status: :not_found
+  #     end
+  #   else
+  #     render json: { error: "Subdomain not provided" }, status: :bad_request
+  #   end
+  # end
 end
