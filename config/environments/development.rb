@@ -60,8 +60,8 @@ config.action_mailer.smtp_settings = {
     "127.0.0.1:3000",
     "localhost",         # Allow requests from localhost
 
-    "fonepadi.com",     # Allow requests from example.com
-    /.*\.fonepadi\.com/ # Allow requests from subdomains like `www.example.com`
+    "fonepadi.online",     # Allow requests from example.com
+    /.*\.fonepadi\.online/ # Allow requests from subdomains like `www.example.com`
   ]
 
   # Raise exceptions for disallowed deprecations.

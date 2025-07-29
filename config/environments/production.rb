@@ -107,8 +107,8 @@ config.action_mailer.smtp_settings = {
   config.hosts = [
     "hire-purchase-divine-darkness-479.fly.dev",
     /.*\.hire-purchase-divine-darkness-479\.fly\.dev/,
-    "fonepadi.com",     # Allow requests from example.com
-    /.*\.fonepadi\.com/ # Allow requests from subdomains like `www.example.com`
+    "fonepadi.online",     # Allow requests from example.com
+    /.*\.fonepadi\.online/ # Allow requests from subdomains like `www.example.com`
   ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
