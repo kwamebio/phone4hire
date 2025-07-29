@@ -62,6 +62,7 @@ config.action_mailer.smtp_settings = {
 
     "fonepadi.online",     # Allow requests from example.com
     /.*\.fonepadi\.online/ # Allow requests from subdomains like `www.example.com`
+
   ]
 
   # Raise exceptions for disallowed deprecations.
