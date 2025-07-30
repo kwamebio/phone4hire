@@ -1,5 +1,5 @@
 class SuperAdminController < ApplicationController
-  skip_before_action :set_current_tenant, only: [ :total_tenants, :total_users, :total_revenue, :contracts ]
+  # skip_before_action :set_current_tenant, only: [ :total_tenants, :total_users, :total_revenue, :contracts ]
   def total_tenants
     ActsAsTenant.without_tenant do
       @total_tenants = Dealer.count
