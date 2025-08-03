@@ -1,5 +1,6 @@
 class RegistrationsController < ApplicationController
   skip_before_action :authorize_request, only: [ :create ]
+  skip_before_action :set_current_tenant, only: [ :create_dealer, :health_check ]
   # skip_before_action :set_current_tenant_by_subdomain, only: [ :health_check ]
 
   def health_check
@@ -25,6 +26,20 @@ class RegistrationsController < ApplicationController
       send_otp(@user)
       Otp.update!(delivery_status: true)
       render json: { message: "An otp has been sent to your email", user: @user }, status: :created
+    end
+  rescue ActiveRecord::RecordInvalid => e
+      render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
+  rescue => e
+      render json: { error: "Something went wrong: #{e.message}" }, status: :internal_server_error
+  end
+
+  def create_dealer
+    ActiveRecord::Base.transaction do
+      @dealer = Dealer.create!(dealer_params)
+      puts "------------------------- #{@dealer.inspect} -------------------------"
+      send_otp(@dealer)
+      Otp.update!(delivery_status: true)
+      render json: { message: "An otp has been sent to your email", dealer: @dealer }, status: :created
     end
   rescue ActiveRecord::RecordInvalid => e
       render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
@@ -62,11 +77,14 @@ class RegistrationsController < ApplicationController
        otp = Otp.create!(
             otp_code: otp_code_generated,
             verify_status: false,
-            delivery_status: false,
             expires_at: 10.minutes.from_now,
             owner: user
       )
       user.send_otp_email(otp)
+  end
+
+  def dealer_params
+    params.require(:dealer).permit(:name, :email, :phone_number, :region, :address, :subdomain, :password, :password_confirmation)
   end
 
   def user_params

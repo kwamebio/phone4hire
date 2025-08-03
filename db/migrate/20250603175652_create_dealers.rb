@@ -3,11 +3,12 @@ class CreateDealers < ActiveRecord::Migration[7.2]
     create_table :dealers do |t|
       t.string :name
       t.string :email
+      t.string :password_digest
       t.string :phone_number
       t.text :address
       t.string :region
       t.string :subdomain
-      t.boolean :approved
+      t.boolean :approved, default: false
 
       t.timestamps
     end

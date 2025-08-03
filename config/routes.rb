@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   post "/reset_password", to: "passwords#reset_password"
   match "/", to: "registrations#health_check", via: :get
 
+  # routes for dealers
+  match "/dealers", to: "registrations#create_dealer", via: :post
+
   # routes for devices
   match "/devices", to: "devices#index", via: :get
   match "/devices/:id", to: "devices#show", via: :get

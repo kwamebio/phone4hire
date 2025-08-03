@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
   end
 
   def set_current_tenant
-    subdomain = request.headers["Dealer-Subdomain"]
+    subdomain = request.headers["Subdomain"]
     dealer_id = request.headers["Dealer-Id"]
 
     if subdomain.present?

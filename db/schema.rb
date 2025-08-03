@@ -40,11 +40,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_13_000911) do
   create_table "dealers", force: :cascade do |t|
     t.string "name"
     t.string "email"
+    t.string "password_digest"
     t.string "phone_number"
     t.text "address"
     t.string "region"
     t.string "subdomain"
-    t.boolean "approved"
+    t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_dealers_on_email", unique: true
