@@ -36,7 +36,6 @@ class RegistrationsController < ApplicationController
   def create_dealer
     ActiveRecord::Base.transaction do
       @dealer = Dealer.create!(dealer_params)
-      puts "------------------------- #{@dealer.inspect} -------------------------"
       send_otp(@dealer)
       Otp.update!(delivery_status: true)
       render json: { message: "An otp has been sent to your email", dealer: @dealer }, status: :created
