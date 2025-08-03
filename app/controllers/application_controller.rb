@@ -22,8 +22,8 @@ class ApplicationController < ActionController::API
   end
 
   def set_current_tenant
-    subdomain = request.body["X-Dealer-Subdomain"]
-    dealer_id = request.body["X-Dealer-Id"]
+    subdomain = request.headers["X-Dealer-Subdomain"]
+    dealer_id = request.headers["X-Dealer-Id"]
 
     if subdomain.present?
       dealer = Dealer.find_by(params[subdomain: subdomain])
