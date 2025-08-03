@@ -26,9 +26,9 @@ class ApplicationController < ActionController::API
     dealer_id = request.headers["X-Dealer-Id"]
 
     if subdomain.present?
-      dealer = Dealer.find_by(params[subdomain: subdomain])
+      dealer = Dealer.find_by(subdomain: subdomain)
     elsif dealer_id.present?
-      dealer = Dealer.find_by(params[id: dealer_id])
+      dealer = Dealer.find_by(id: dealer_id)
     end
 
     if dealer
