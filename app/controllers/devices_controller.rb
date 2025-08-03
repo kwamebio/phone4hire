@@ -27,7 +27,7 @@ class DevicesController < ApplicationController
   def create
     device = Device.create!(device_params)
     if device
-      render json: { message: "Device created successfully", device: device }, status: :created
+      render json: { message: "Device created successfully", device: device, subdomain: device.dealer&.subdomain }, status: :created
     else
       render json: { error: "Failed to create device" }, status: :unprocessable_entity
     end
